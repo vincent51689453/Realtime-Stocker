@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
 
-epoches = 1100
+epoches = 700
 batch_size = 64
 initial_learning_rate = 0.001
 decay_step = 100
@@ -33,7 +33,8 @@ def Neural_Network():
     model.add(Dropout(0.15))
     model.add(Dense(int(neurons-20*6),input_dim = int(neurons-20*5),activation='tanh', kernel_initializer='normal'))
     model.add(Dropout(0.15))
-
+    model.add(Dense(int(neurons-20*7),input_dim = int(neurons-20*6),activation='tanh', kernel_initializer='normal'))
+    model.add(Dropout(0.15))
     #Output layer
     model.add(Dense(1, activation='linear'))
 
@@ -58,6 +59,8 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
     #opt = keras.optimizers.SGD(learning_rate=lr_schedule,momentum=0.9)
     model.compile(loss=loss_function, optimizer=opt)
     history = model.fit(training_x, training_y, epochs=epoches, batch_size=batch_size, validation_data=(testing_x, testing_y), verbose=2)
+    model.save('Network_core.h5')
+    print("Network saved!")
 
     print()
     print("History keys are following: ")
