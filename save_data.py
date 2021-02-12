@@ -72,9 +72,9 @@ def main():
         price_buffer.append(price)
         time_buffer.append(systime)
         index_buffer.append(csv_index)
-        print("Time: "+systime+"| Price: "+str(price)+"|  Buffer_index: "+str(counter))
+        print("Time: "+systime+"| Price: "+str(price)+"|  Buffer_index: "+str(csv_index))
         realtime_plot(index_buffer,price_buffer)
-        
+
     plt.show()
 
 
