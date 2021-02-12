@@ -5,36 +5,33 @@ from tensorflow.keras.layers import Dense, Dropout, Input, concatenate
 from tensorflow.keras.models import Model
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import numpy as np
 
-epoches = 300
-batch_size = 8
-initial_learning_rate = 0.01
-decay_step = 50
+epoches = 1500
+batch_size = 64
+initial_learning_rate = 0.001
+decay_step = 100
 decay_factor = 0.96
 
 def Neural_Network():
     model = Sequential()
-    neurons_num = 80
+    neurons = 500
 
     #Input layer
-    model.add(Dense(1, input_dim=1, activation='tanh'))
+    model.add(Dense(neurons, input_dim=1, activation='relu', kernel_initializer='normal'))
     
     #Hidden layer
-    model.add(Dense(neurons_num, activation='tanh'))
+    model.add(Dense(int(neurons-50*1),input_dim = neurons,activation='relu', kernel_initializer='normal'))
     model.add(Dropout(0.15))
-    model.add(Dense(neurons_num, activation='tanh'))
+    model.add(Dense(int(neurons-50*2),input_dim = int(neurons-50*1),activation='relu', kernel_initializer='normal'))
     model.add(Dropout(0.15))
-    model.add(Dense(neurons_num, activation='tanh'))
+    model.add(Dense(int(neurons-50*3),input_dim = int(neurons-50*2),activation='relu', kernel_initializer='normal'))
     model.add(Dropout(0.15))
-    model.add(Dense(neurons_num, activation='tanh'))
+    model.add(Dense(int(neurons-50*4),input_dim = int(neurons-50*3),activation='relu', kernel_initializer='normal'))
     model.add(Dropout(0.15))
-    model.add(Dense(neurons_num, activation='tanh'))
+    model.add(Dense(int(neurons-50*5),input_dim = int(neurons-50*4),activation='relu', kernel_initializer='normal'))
     model.add(Dropout(0.15))
-    model.add(Dense(neurons_num, activation='tanh'))
-    model.add(Dropout(0.15))
-    model.add(Dense(neurons_num, activation='tanh'))
-    model.add(Dropout(0.15))
-    model.add(Dense(neurons_num, activation='tanh'))
+    model.add(Dense(int(neurons-50*6),input_dim = int(neurons-50*5),activation='relu', kernel_initializer='normal'))
     model.add(Dropout(0.15))
 
     #Output layer
@@ -73,16 +70,16 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['loss', 'validation loss'], loc='upper left')
+    plt.grid()
     plt.show()
 
 
     #Prediction
-    print(raw_index)
     y_pred = model.predict(raw_index)
     fig = plt.figure(figsize=(15,8))
     plt.title('AI Prediction of EURUSD')
-    plt.scatter(raw_index, raw_price, c='green', label='Market',s=2)
-    plt.scatter(raw_index, y_pred, c='red', label='AI-Prediction',s=2)
+    plt.scatter(raw_index, raw_price, c='green', label='Market',s=5)
+    plt.scatter(raw_index, y_pred, c='red', label='AI-Prediction',s=5)
     plt.legend()
-    plt.grid
+    plt.grid()
     plt.show()

@@ -43,6 +43,12 @@ def split_data(num_data):
     #Zip two lists together so they can shuffle in the same order
     temp = list(zip(price_data,index)) 
 
+    #Backup and normalized ordered data
+    sc = MinMaxScaler()
+    norm_price = np.array(price_data)
+    norm_price_backup = sc.fit_transform(norm_price.reshape(-1,1))
+    norm_price_backup = norm_price_backup.reshape(1,-1)    
+
     np.random.shuffle(temp)
 
     #Sepearte two lists
@@ -72,17 +78,18 @@ def split_data(num_data):
     fig = plt.figure(figsize=(15,8))
     plt.title('Data Distribution')
     #plt.scatter(index, price_data, c='blue', label='Market',s=2)
-    plt.scatter(x_train, y_train, c='red', label='train',s=2)
-    plt.scatter(x_test, y_test, c='green', label='validation',s = 2)
+    plt.scatter(x_train, y_train, c='red', label='train',s=5)
+    plt.scatter(x_test, y_test, c='green', label='validation',s = 5)
     plt.legend()
+    plt.grid()
     plt.show()   
 
-    return x_train,x_test,y_train,y_test   
+    return x_train,x_test,y_train,y_test,norm_price_backup
 
 def main():
     total_data = load_dataset(file_path)
-    x_train,x_test,y_train,y_test = split_data(total_data)
-    network.model_training(x_train,y_train,x_test,y_test,index,price_ready)
+    x_train,x_test,y_train,y_test,y_backup = split_data(total_data)
+    network.model_training(x_train,y_train,x_test,y_test,index,y_backup)
 
 if __name__ == '__main__':
     main()
