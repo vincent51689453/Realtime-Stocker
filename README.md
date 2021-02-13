@@ -17,3 +17,7 @@ $ python save_data.py
 ```
 $ python scheduler.py
 ```
+
+**3. Sample Layout**
+---------------------------
+![image](https://github.com/vincent51689453/Realtime-Stocker/blob/main/git_image/layout_graph.PNG)
