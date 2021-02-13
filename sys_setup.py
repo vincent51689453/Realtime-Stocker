@@ -15,4 +15,3 @@ training_fraction = 0.75
 target_stock = 'wkhs'
 interval_seconds = 1
 
-#

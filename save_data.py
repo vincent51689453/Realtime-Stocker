@@ -24,6 +24,14 @@ marker_shape = 'x'
 #CSV data
 csv_index = 0
 
+def get_csv_index(csvfile_path):
+    with open(csvfile_path,newline="") as csvfile:
+        rows = csv.reader(csvfile)
+        i = 0
+        for row in rows:
+            i+=1
+    return i
+
 def get_stockprice_now(company):
     price = si.get_live_price(company)
     return price
@@ -46,11 +54,13 @@ def realtime_plot(time_x,price_y):
 def main():
     global price_buffer,csv_index,index_buffer
     while True:
+        #Find number of original data
+        csv_index = get_csv_index(ss.file_path)
+
         #Read stock prices
         systime = get_systime()
         price = get_stockprice_now(ss.target_stock)
         csv_list = [systime,price,csv_index]
-        csv_index += 1
 
         #Save to csv for dataset
         with open(ss.file_path, 'a',newline="") as csvfile:
@@ -63,6 +73,8 @@ def main():
         index_buffer.append(csv_index)
         print("Time: "+systime+"| Price: "+str(price)+"|  Buffer_index: "+str(csv_index))
         realtime_plot(index_buffer,price_buffer)
+
+        csv_index += 1
 
     plt.show()
 
