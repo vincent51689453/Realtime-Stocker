@@ -6,12 +6,8 @@ from tensorflow.keras.models import Model
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
+import sys_setup as ss
 
-epoches = 700
-batch_size = 64
-initial_learning_rate = 0.001
-decay_step = 100
-decay_factor = 0.96
 
 def Neural_Network():
     model = Sequential()
@@ -49,16 +45,16 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
 
     # fit the model on the training dataset
     lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
-        initial_learning_rate,
-        decay_steps=decay_step ,
-        decay_rate=decay_factor,
+        ss.initial_learning_rate,
+        decay_steps=ss.decay_step ,
+        decay_rate=ss.decay_factor,
         staircase=True)
 
     opt = keras.optimizers.Adam(learning_rate=lr_schedule)
     #opt = keras.optimizers.SGD(learning_rate=lr_schedule,momentum=0.9)
     #opt = keras.optimizers.SGD(learning_rate=lr_schedule,momentum=0.9)
     model.compile(loss=loss_function, optimizer=opt)
-    history = model.fit(training_x, training_y, epochs=epoches, batch_size=batch_size, validation_data=(testing_x, testing_y), verbose=2)
+    history = model.fit(training_x, training_y, epochs=ss.epoches, batch_size=ss.batch_size, validation_data=(testing_x, testing_y), verbose=2)
     model.save('Network_core.h5')
     print("Network saved!")
 
@@ -67,6 +63,17 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
     print(history.history.keys())
     print()
 
+    #Data Visualization
+    fig = plt.figure(1,figsize=(15,8))
+    plt.subplot(2,2,1)
+    plt.title('Data Distribution')
+    #plt.scatter(index, price_data, c='blue', label='Market',s=2)
+    plt.scatter(training_x, training_y, c='red', label='train',s=5)
+    plt.scatter(testing_x, testing_y, c='green', label='validation',s = 5)
+    plt.legend()
+    plt.grid()
+
+    plt.subplot(2,2,2)
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
     plt.title('model loss')
@@ -74,12 +81,11 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
     plt.xlabel('epoch')
     plt.legend(['loss', 'validation loss'], loc='upper left')
     plt.grid()
-    plt.show()
 
 
     #Prediction
     y_pred = model.predict(raw_index)
-    fig = plt.figure(figsize=(15,8))
+    plt.subplot(2,2,3)
     plt.title('AI Stock Price Prediction')
     plt.scatter(raw_index, raw_price, c='green', label='Market',s=5)
     plt.scatter(raw_index, y_pred, c='red', label='AI-Prediction',s=5)
