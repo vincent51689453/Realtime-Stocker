@@ -15,5 +15,6 @@ write_to_csv = False
 #Stock parameters
 target_stock = 'wkhs'
 interval_seconds = 1
+plot_delay = 10
 sample_max = 10
 

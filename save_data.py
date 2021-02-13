@@ -42,6 +42,8 @@ def get_systime():
     return current_time
 
 def realtime_plot(time_x,price_y):
+    plt.ion()
+    fig = plt.figure(1,figsize=(15,8))
     plt.autoscale(enable=True, axis='both')
     y = np.array(price_y)
     x = np.array(time_x)
@@ -49,7 +51,9 @@ def realtime_plot(time_x,price_y):
     plt.xlabel("Time")
     plt.ylabel("Price")
     plt.scatter(x,y,s=marker_size,c=marker_color,marker=marker_shape)
+    fig.canvas.draw()
     plt.pause(ss.interval_seconds)
+
   
 def main():
     global price_buffer,csv_index,index_buffer
@@ -76,7 +80,7 @@ def main():
 
         csv_index += 1
 
-    plt.show()
+
 
 if __name__ == '__main__':
     main()

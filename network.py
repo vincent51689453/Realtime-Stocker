@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
 import sys_setup as ss
+import time
 
 
 def Neural_Network():
@@ -64,7 +65,9 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
     print()
 
     #Data Visualization
-    fig = plt.figure(1,figsize=(15,8))
+    plt.ion()
+    fig = plt.figure(2,figsize=(15,8))
+    fig.suptitle('Deep Learning Stock Analyze', fontsize=16)
     plt.subplot(2,2,1)
     plt.title('Data Distribution')
     #plt.scatter(index, price_data, c='blue', label='Market',s=2)
@@ -88,7 +91,13 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
     plt.subplot(2,2,3)
     plt.title('AI Stock Price Prediction')
     plt.scatter(raw_index, raw_price, c='green', label='Market',s=5)
-    plt.scatter(raw_index, y_pred, c='red', label='AI-Prediction',s=5)
+    plt.scatter(raw_index, y_pred, marker = 'x', c='red', label='AI-Prediction',s=5)
     plt.legend()
     plt.grid()
-    plt.show()
+
+    fig.canvas.draw()
+    plt.pause(ss.plot_delay)
+
+    
+
+

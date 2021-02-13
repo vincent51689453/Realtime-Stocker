@@ -20,7 +20,7 @@ price_ready = []
 
 def load_dataset(csv_file):
     i = 0
-    global price_data,time_data
+    global price_data,time_data,index
     print("[INFO] Start loading dataset...")
     print("[INFO] It may take some time... Be patient")
     with open(csv_file) as csvfile:
@@ -72,21 +72,26 @@ def split_data(num_data):
     y_train = price_ready[:training_size]
     y_test = price_ready[training_size:]  
 
-    fig = plt.figure(1,figsize=(15,8))
+    """
+    plt.subplot(2,2,1)
     plt.title('Data Distribution')
     #plt.scatter(index, price_data, c='blue', label='Market',s=2)
     plt.scatter(x_train, y_train, c='red', label='train',s=5)
     plt.scatter(x_test, y_test, c='green', label='validation',s = 5)
     plt.legend()
     plt.grid()
-    #plt.show()   
+    #plt.show()
+    """   
 
     return x_train,x_test,y_train,y_test,norm_price_backup
 
 def main():
+
     total_data = load_dataset(ss.file_path)
     x_train,x_test,y_train,y_test,y_backup = split_data(total_data)
     network.model_training(x_train,y_train,x_test,y_test,index,y_backup)
+
+
 
 if __name__ == '__main__':
     main()
