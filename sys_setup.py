@@ -7,6 +7,9 @@ initial_learning_rate = 0.001
 decay_step = 100
 decay_factor = 0.96
 
+#Predictions
+future_points = 200
+
 #Dataset parameters
 file_path = 'stock.csv'
 training_fraction = 0.75

@@ -85,13 +85,22 @@ def model_training(training_x,training_y,testing_x,testing_y,raw_index,raw_price
     plt.legend(['loss', 'validation loss'], loc='upper left')
     plt.grid()
 
+    
+    j = max(raw_index)
+    z = 0
+    future_index = []
+    #Add some future points
+    while(z<(ss.future_points+j)):
+        future_index.append(z)
+        z+=1
+    
 
     #Prediction
-    y_pred = model.predict(raw_index)
+    y_pred = model.predict(future_index)
     plt.subplot(2,2,3)
     plt.title('AI Stock Price Prediction')
     plt.scatter(raw_index, raw_price, c='green', label='Market',s=5)
-    plt.scatter(raw_index, y_pred, marker = 'x', c='red', label='AI-Prediction',s=5)
+    plt.scatter(future_index, y_pred, marker = 'x', c='red', label='AI-Prediction',s=5)
     plt.legend()
     plt.grid()
 
