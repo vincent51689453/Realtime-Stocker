@@ -10,8 +10,10 @@ decay_factor = 0.96
 #Dataset parameters
 file_path = 'stock.csv'
 training_fraction = 0.75
+write_to_csv = False
 
 #Stock parameters
 target_stock = 'wkhs'
 interval_seconds = 1
+sample_max = 10
 
