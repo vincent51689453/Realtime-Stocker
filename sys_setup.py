@@ -16,7 +16,7 @@ training_fraction = 0.75
 write_to_csv = False
 
 #Stock parameters
-target_stock = 'wkhs'
+target_stock = '2342.HK'
 interval_seconds = 1
 plot_delay = 10
 sample_max = 10
