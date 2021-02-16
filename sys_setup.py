@@ -17,7 +17,7 @@ write_to_csv = False
 
 #Stock parameters
 target_stock = '2342.HK'
-interval_seconds = 1
+interval_seconds = 60
 plot_delay = 10
 sample_max = 10
 
