@@ -29,4 +29,4 @@ $ python3 scheduler.py
 **4. Docker Image**
 ---------------------------
 The complete installed libraries were embedded inside this docker image which tested by RTX2060 Super. 8GB RAM is required.
-![url](https://hub.docker.com/repository/docker/vincent51689453/stocker)
+![DockerImage](https://hub.docker.com/repository/docker/vincent51689453/stocker)
